@@ -1,0 +1,6 @@
+[web_servers]
+root@192.168.1.236
+
+[db_servers]
+root@10.211.55.5
+
