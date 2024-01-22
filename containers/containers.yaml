@@ -1,0 +1,25 @@
+---
+
+- name: pre-reqs for community.docker
+  hosts: localhost
+  tags: prereqs
+  tasks: 
+  - ansible.builtin.pip:
+      name: requests
+
+- name: create containers to use as ansible managed nodes
+  hosts: localhost
+  tasks:
+    - community.docker.docker_container:
+        name: "c{{ item }}"
+        image: python
+        tty: true
+        interactive: true
+        #state: absent
+        #force_kill: true
+      loop: "{{ range(1,10) }}"
+
+    - community.docker.docker_container:
+        name: sleeper
+        image: python:3.6
+        command: sleep infinity
